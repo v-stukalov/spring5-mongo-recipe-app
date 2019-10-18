@@ -16,45 +16,37 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by jt on 6/17/17.
  */
-
 @RunWith(SpringRunner.class)
 @DataMongoTest
 public class UnitOfMeasureRepositoryIT {
 
     @Autowired
     UnitOfMeasureRepository unitOfMeasureRepository;
-
     @Autowired
     CategoryRepository categoryRepository;
-
     @Autowired
     RecipeRepository recipeRepository;
 
     @Before
-    public void setUp() throws Exception {
-
+    public void setUp() {
         recipeRepository.deleteAll();
         unitOfMeasureRepository.deleteAll();
         categoryRepository.deleteAll();
 
         RecipeBootstrap recipeBootstrap = new RecipeBootstrap(categoryRepository, recipeRepository, unitOfMeasureRepository);
-
         recipeBootstrap.onApplicationEvent(null);
     }
 
     @Test
-    public void findByDescription() throws Exception {
+    public void findByDescription() {
 
         Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByDescription("Teaspoon");
-
         assertEquals("Teaspoon", uomOptional.get().getDescription());
     }
 
     @Test
-    public void findByDescriptionCup() throws Exception {
-
+    public void findByDescriptionCup() {
         Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByDescription("Cup");
-
         assertEquals("Cup", uomOptional.get().getDescription());
     }
 
